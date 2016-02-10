@@ -1,9 +1,48 @@
 <html>
+	<head>
+		<link href='https://fonts.gstatic.com' rel='preconnect' crossorigin>
+		<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,600,800' rel='stylesheet' type='text/css'>
+		<style>
+			html, body {
+				font-family: 'OpenSans', Sans;
+				background: #FFF0F5;
+				font-weight: 400;
+				color: #333;
+			}
+
+			.low-contrast-fg {
+				color: #999;
+			}
+
+			.low-contrast-bg {
+				background: #555;
+			}
+
+			.standout {
+				box-shadow: 0 0 2em 0 #333;
+				padding: 1em;
+				display: inline-block;
+				margin: 1em;
+			}
+
+		</style>
+	</head>
 	<body>
 		<article>
 			<h1>Contrast analysis widget.</h1>
-			<p>Lorem Ipsum!!</p>
+			<p>Brief Description</p>
+
+			<h4>The Bookmarklet: <a href="javascript:<!-- @echo bm -->" class="bookmarklet">Get Page Contrast</a></h4>
+			<h3>Examples</h3>
+			<div>
+				<div class="standout low-contrast-fg">
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+				</div>
+				<div class="standout low-contrast-bg">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+			</div>
 		</article>
-		<script type="text/javascript" src="../build/bundle.min.js"></script>
+		<script type="text/javascript" src="bundle.min.js"></script>
 	</body>
 </html>
