@@ -3,6 +3,16 @@
 		<link href='https://fonts.gstatic.com' rel='preconnect' crossorigin>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,600,800' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-grid@^4.0.0" />
+		<meta http-equiv="cleartype" content="on" />
+		<meta name="MobileOptimized" content="width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@lady_ada_king" />
+		<meta name="twitter:title" content="Contraster" />
+		<meta name="twitter:description" content="Find potentially low contrast type." />
+		<meta name="twitter:url" content="https://gh.ada.is/contrast-widget/" />
+		<meta name="twitter:image" content="https://gh.ada.is/contrast-widget/images/screenshot.png">
 		<style>
 
 			html {
@@ -19,6 +29,9 @@
 
 			h1, h2, h3, h4, h5, h6 {
 				font-weight: 300;
+			}
+
+			h2, h3 {
 				text-decoration: underline;
 				margin: 2em 0 1.5em 0;
 			}
@@ -105,6 +118,11 @@
 				tab-size: 4;
 			}
 
+			footer {
+				padding: 1em;
+				border-top: 1px solid #ccc;
+			}
+
 		</style>
 		<script type="text/javascript" src="contrast-widget-bundle.min.js" async defer></script>
 	</head>
@@ -153,8 +171,7 @@
 </pre>
 				</p>
 
-				<h2>Configuring the scripts</h2>
-				<p>Before running the script inject into the page a settings object</p>
+				<p>To configure the script inject into the page a settings object BEFORE you run the script/bookmarklet.</p>
 				<pre>
 window.contrastWidgetOptions = {
 	badNodeCutOff: 6,         // The threshold for poor contrast.
@@ -171,8 +188,10 @@ window.contrastWidgetOptions = {
 
 				<h2>Contribute</h2>
 				<p><a href="https://github.com/AdaRoseEdwards/contrast-widget">Github Page with build instructions.</a></p>
-
 			</article>
 		</div></div>
+		<footer>
+			2016 - Ada Rose Edwards
+		</footer>
 	</body>
 </html>
