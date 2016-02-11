@@ -13,6 +13,7 @@
 		<meta name="twitter:description" content="Find potentially low contrast type." />
 		<meta name="twitter:url" content="https://gh.ada.is/contrast-widget/" />
 		<meta name="twitter:image" content="https://gh.ada.is/contrast-widget/images/screenshot.png">
+		<title>Contraster</title>
 		<style>
 
 			html {
@@ -130,15 +131,14 @@
 		<h1 class="title">Contrast analysis widget.</h1>
         <div class="o-grid-container"><div class="o-grid-row">
 			<article data-o-grid-colspan="center 12 M11 L9">
-				<p>This is inspired by Lea Verou's work on site contrast and uses some code from her <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> Utility</p>
-				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it difficult to read some text.
+				<p>This tool is inspired by Lea Verou's work on site contrast and uses some code from her <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> Utility</p>
+				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it very difficult for some readers to read some text.
 				Lea Verou's contrast tool works out the contrast between two colours and gives a numerical answer to whether it has enough contrast.</p>
-				<p>This tool extends upon </p>
 
-				<p>The Bookmarklet drag it to your bookmark bar: <a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Get Page Contrast</a></p>
+				<p>Drag the Bookmarklet drag it to your bookmark bar: &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Get Page Contrast</a></p>
 
 				<h2>Examples of bad contrast:</h2>
-				<p>Push the Highlight bad els button to see these highlighted.</p>
+				<p>Push the "Highlight Low Contrast Elements" button to see these highlighted.</p>
 				<div>
 					<div class="standout low-contrast-fg">
 						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
@@ -174,16 +174,17 @@
 				<p>To configure the script inject into the page a settings object BEFORE you run the script/bookmarklet.</p>
 				<pre>
 window.contrastWidgetOptions = {
-	badNodeCutOff: 6,         // The threshold for poor contrast.
+	badNodeCutOff: 4.5,         // The threshold for poor contrast.
 	showModal: true,          // whether to show the modal with the graph
 	highlightBadEls: false    // whether to highlight the bad nodes
 }
 				</pre>
 				<h2>Limitations</h2>
 				<ul>
-					<li>Background Images/Canvas won't be counted</li>
-					<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour.</li>
+					<li>Background Images and Gradients will be ignored, but it is good practise for these to have a similar 'background-color' regardless to fall back to in case of a lack of gradient support or the image fails to load.</li>
+					<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour will still have that background colour used.</li>
 					<li>The node highlighter will mis-highlight transformed elements (scale, translate etc..)</li>
+					<li>highlighted 'position: fixed' elements will not match the highlight after a scroll</li>
 				</ul>
 
 				<h2>How it works</h2>
