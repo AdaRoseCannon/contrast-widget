@@ -2,6 +2,7 @@
 	<head>
 		<link href='https://fonts.gstatic.com' rel='preconnect' crossorigin>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,600,800' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-grid@^4.0.0" />
 		<style>
 
 			html {
@@ -12,10 +13,24 @@
 				font-family: 'Open Sans', sans-serif;
 				font-weight: 400;
 				color: #333;
+				margin: 0;
+				padding: 0;
 			}
 
 			h1, h2, h3, h4, h5, h6 {
 				font-weight: 300;
+				text-decoration: underline;
+				margin: 2em 0 1.5em 0;
+			}
+
+			.title {
+				border-bottom: 1px solid #ccc;
+				font-size: 2em;
+				background: url(./images/pattern.svg);
+				background-size: cover;
+				text-decoration: none;
+				margin: 0;
+				padding: 2em 1em 1em 1em;
 			}
 
 			.low-contrast-fg {
@@ -75,79 +90,89 @@
 			}
 
 			.code {
-				font-family: mono;
+				font-family: monospace;
 				display: inline;
 			}
 
-			pre.codeblock {
+			pre {
 				display: block;
 				border: 1px solid rgba(100, 100, 100, 0.5);
 				background: 1px solid rgba(100, 100, 100, 0.3);
 				padding: 2em;
 				border-radius: 1em;
 				margin: 1em;
+				overflow: auto;
+				tab-size: 4;
 			}
 
 		</style>
+		<script type="text/javascript" src="contrast-widget-bundle.min.js" async defer></script>
 	</head>
 	<body>
-		<article>
-			<h1>Contrast analysis widget.</h1>
-			<p>Brief Description</p>
+		<h1 class="title">Contrast analysis widget.</h1>
+        <div class="o-grid-container"><div class="o-grid-row">
+			<article data-o-grid-colspan="center 12 M11 L9">
+				<p>This is inspired by Lea Verou's work on site contrast and uses some code from her <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> Utility</p>
+				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it difficult to read some text.
+				Lea Verou's contrast tool works out the contrast between two colours and gives a numerical answer to whether it has enough contrast.</p>
+				<p>This tool extends upon </p>
 
-			<p>The Bookmarklet drag it to your bookmark bar: <a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Get Page Contrast</a></p>
+				<p>The Bookmarklet drag it to your bookmark bar: <a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Get Page Contrast</a></p>
 
-			<h2>Scripts for automated testing</h2>
-			<p>
-				Scripts you can inject with phantomjs to perform analysis:
-				<ul>
-					<li><a href="./bundle.es2015.js">es2015 Bundle</a></li>
-					<li><a href="./bundle.min.js">es5 minified bundle (~60k)</a></li>
-				</ul>
-				These scripts will run the bookmarklet and attatch the data to <span class="code">window.contrastWidgetData</span> The data format:
-				<pre class="codeblock">{
-  "badContrastNodes": [
-    {
-      "node": DOM Node,             // Node which is below threshold
-      "contrastRatio": 2.6          // contrast ratio of the node
-    }
-  ],
-  "proportionBadContrast": 7.0495,  // Proportion of characters below threshold
-  "chartData": [ Number &#215; 16 ]      // Data to produce the chart from 0 to >15,
-  "highlightBadEls": Function       // function to highlight bad elements
-}</pre>
-			</p>
+				<h2>Examples of bad contrast:</h2>
+				<p>Push the Highlight bad els button to see these highlighted.</p>
+				<div>
+					<div class="standout low-contrast-fg">
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+					</div>
+					<div class="standout low-contrast-bg">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</div>
+				</div>
 
-			<h2>Configuring the scripts</h2>
-			<p>Before running the script inject into the page a settings object</p>
-			<pre>
-window.contrastWidgetOptions = {
-	badNodeCutOff: 6,         // The threshold for what nodes are thought of as bad.
-	showModal: true,          // whether to show the modal with the graph
-	highlightBadEls: false  // whether to highlight the bad nodes
+				<h2>Scripts for automated testing</h2>
+				<p>
+					Scripts you can inject with phantomjs to perform analysis:
+					<ul>
+						<li><a href="./contrast-widget-bundle.es2015.js">es2015 Bundle</a></li> (Should work in recent chrome)
+						<li><a href="./contrast-widget-bundle.min.js">es5 minified bundle (~60k)</a></li>
+					</ul>
+					These scripts will run the bookmarklet and attatch the data to <span class="code">window.contrastWidgetData</span> The data format:
+					<pre>
+{
+	"badContrastNodes": [
+		{
+			"node": DOM Node,             // Node which is below threshold
+			"contrastRatio": 2.6          // contrast ratio of the node
+		}
+	],
+	"proportionBadContrast": 7.0495,      // Proportion of characters below threshold
+	"chartData": [ Number &#215; 16 ]          // Data to produce the chart from 0 to >15,
+	"highlightBadEls": Function           // function to highlight bad elements
 }
-			</pre>
-			<h2>Limitations</h2>
-			<ul>
-				<li>Background Images/Canvas won't be counted</li>
-				<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour.</li>
-				<li>The node highlighter will mis-highlight transformed elements (scale, translate etc..)</li>
-			</ul>
+</pre>
+				</p>
 
-			<h2>Contribute</h2>
-			<p><a href="https://github.com/AdaRoseEdwards/contrast-widget">Github Page with build instructions.</a></p>
+				<h2>Configuring the scripts</h2>
+				<p>Before running the script inject into the page a settings object</p>
+				<pre>
+window.contrastWidgetOptions = {
+	badNodeCutOff: 6,         // The threshold for poor contrast.
+	showModal: true,          // whether to show the modal with the graph
+	highlightBadEls: false    // whether to highlight the bad nodes
+}
+				</pre>
+				<h2>Limitations</h2>
+				<ul>
+					<li>Background Images/Canvas won't be counted</li>
+					<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour.</li>
+					<li>The node highlighter will mis-highlight transformed elements (scale, translate etc..)</li>
+				</ul>
 
-			<h2>Examples of bad contrast:</h2>
-			<p>Push the Highlight bad els button to see these highlighted.</p>
-			<div>
-				<div class="standout low-contrast-fg">
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-				</div>
-				<div class="standout low-contrast-bg">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</div>
-			</div>
-		</article>
-		<script type="text/javascript" src="bundle.min.js"></script>
+				<h2>Contribute</h2>
+				<p><a href="https://github.com/AdaRoseEdwards/contrast-widget">Github Page with build instructions.</a></p>
+
+			</article>
+		</div></div>
 	</body>
 </html>

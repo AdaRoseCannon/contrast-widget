@@ -4,11 +4,12 @@
   "description": "Bookmarklet to analyse the contrast of test elements in a document",
   "main": "index.js",
   "scripts": {
-    "build:js": "mkdir -p build && rollup -c && babel --presets es2015 ./build/bundle.es2015.js | uglifyjs -m --screw-ie8 > ./build/bundle.min.js && wc -c ./build/bundle.min.js",
+    "build:js": "mkdir -p build && rollup -c && babel --presets es2015 ./build/contrast-widget-bundle.es2015.js | uglifyjs -m --screw-ie8 > ./build/contrast-widget-bundle.min.js && wc -c ./build/contrast-widget-bundle.min.js",
     "build:html": "node ./build-html.js",
-    "watch": "nodemon --watch ./lib --exec 'npm run build'",
-    "build": "npm run build:js && npm run build:html",
-    "deploy": "npm run build && git-directory-deploy --directory ./build"
+    "watch": "nodemon --watch ./lib --watch ./client -e html,js --exec 'npm run build'",
+    "build": "npm run build:js && npm run build:html && npm run images",
+    "deploy": "npm run build && git-directory-deploy --directory ./build",
+    "images": "cp -r client/images build/"
   },
   "repository": "https://github.com/AdaRoseEdwards/contrast-widget",
   "author": "Ada Rose Edwards <ada@ada.is>",

@@ -11,5 +11,5 @@ export default {
       include: 'node_modules/**'
     })
   ],
-  dest: './build/bundle.es2015.js'
+  dest: './build/contrast-widget-bundle.es2015.js'
 };
