@@ -4509,13 +4509,35 @@ function main() {
 		float: 'right',
 		fontWeight: 'bold',
 		fontSize: '1.6em',
-		cursor: 'pointer'
+		cursor: 'pointer',
+		textDecoration: 'none',
+		color: 'black',
+		width: '1em',
+		lineHeight: '1em',
+		padding: '0.1em'
 	});
 	menuBar.appendChild(xButton);
 	xButton.addEventListener('click', function () {
 		chartWrapper.parentNode.removeChild(chartWrapper);
 		removeHighlight();
 	});
+
+	const iButton = document.createElement('a');
+	iButton.innerHTML = '&#9432;';
+	css$$(iButton, {
+		display: 'inline-block',
+		float: 'right',
+		fontWeight: 'bold',
+		fontSize: '1.6em',
+		cursor: 'pointer',
+		textDecoration: 'none',
+		color: 'black',
+		width: '1em',
+		lineHeight: '1em',
+		padding: '0.1em'
+	});
+	iButton.href = 'https://gh.ada.is/contrast-widget';
+	menuBar.appendChild(iButton);
 
 	css$$(chartWrapper, {
 		position: 'fixed',
