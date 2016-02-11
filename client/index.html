@@ -187,7 +187,11 @@ window.contrastWidgetOptions = {
 				</ul>
 
 				<h2>How it works</h2>
-				
+				<p>The logic is pretty dumb, it iterates over all text nodes and collects their parent.</p>
+				<p>We then iterate over the parents and use <span class="code">getComputedStyle</span> to measure the <span class="code">color</span></p>
+				<p>We have to be a bit smarter for the background we traverse up the tree until we find a parent with a background.</p>
+				<p>These values are then used with the color lib from Lea Verou's tool, to work out a value the contrast.</p>
+				<p>We then sum the number of characters contained in that DOM node and use that to produce the small chart.</p>
 
 				<h2>Contribute</h2>
 				<p><a href="https://github.com/AdaRoseEdwards/contrast-widget">Github Page with build instructions.</a></p>
