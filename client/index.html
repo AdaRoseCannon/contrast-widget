@@ -3,9 +3,13 @@
 		<link href='https://fonts.gstatic.com' rel='preconnect' crossorigin>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,600,800' rel='stylesheet' type='text/css'>
 		<style>
+
+			html {
+				background: #FFF0F5;
+			}
+
 			html, body {
 				font-family: 'Open Sans', sans-serif;
-				background: #FFF0F5;
 				font-weight: 400;
 				color: #333;
 			}
@@ -29,6 +33,61 @@
 				margin: 1em;
 			}
 
+			.bookmarklet {
+				display: inline-block;
+				background: #eee;
+				border: 1px solid #ccc;
+				padding: 0.3em;
+				border-radius: 0.5em;
+				text-decoration: none;
+				color: black;
+				cursor: move;
+				cursor: copy;
+				cursor: grab;
+			}
+
+			.lifted {
+				position:relative;
+				background:#fff;
+				box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+			}
+
+			/* Lifted corners */
+
+			.lifted:before,
+			.lifted:after { 
+				content: "";
+				position: absolute; 
+				z-index: -1;
+				bottom:15px;
+				left:3%;
+				width:50%;
+				height:20%;
+				max-width:300px;
+				box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+				transform:rotate(-3deg);
+			}
+
+			.lifted:after {
+				right:3%; 
+				left:auto;
+				transform:rotate(3deg);
+			}
+
+			.code {
+				font-family: mono;
+				display: inline;
+			}
+
+			pre.codeblock {
+				display: block;
+				border: 1px solid rgba(100, 100, 100, 0.5);
+				background: 1px solid rgba(100, 100, 100, 0.3);
+				padding: 2em;
+				border-radius: 1em;
+				margin: 1em;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -36,8 +95,50 @@
 			<h1>Contrast analysis widget.</h1>
 			<p>Brief Description</p>
 
-			<h4>The Bookmarklet: <a href="javascript:<!-- @echo bm -->" class="bookmarklet">Get Page Contrast</a></h4>
-			<h3>Examples</h3>
+			<p>The Bookmarklet drag it to your bookmark bar: <a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Get Page Contrast</a></p>
+
+			<h2>Scripts for automated testing</h2>
+			<p>
+				Scripts you can inject with phantomjs to perform analysis:
+				<ul>
+					<li><a href="./bundle.es2015.js">es2015 Bundle</a></li>
+					<li><a href="./bundle.min.js">es5 minified bundle (~60k)</a></li>
+				</ul>
+				These scripts will run the bookmarklet and attatch the data to <span class="code">window.contrastWidgetData</span> The data format:
+				<pre class="codeblock">{
+  "badContrastNodes": [
+    {
+      "node": DOM Node,             // Node which is below threshold
+      "contrastRatio": 2.6          // contrast ratio of the node
+    }
+  ],
+  "proportionBadContrast": 7.0495,  // Proportion of characters below threshold
+  "chartData": [ Number &#215; 16 ]      // Data to produce the chart from 0 to >15,
+  "highlightBadEls": Function       // function to highlight bad elements
+}</pre>
+			</p>
+
+			<h2>Configuring the scripts</h2>
+			<p>Before running the script inject into the page a settings object</p>
+			<pre>
+window.contrastWidgetOptions = {
+	badNodeCutOff: 6,         // The threshold for what nodes are thought of as bad.
+	showModal: true,          // whether to show the modal with the graph
+	highlightBadEls: false  // whether to highlight the bad nodes
+}
+			</pre>
+			<h2>Limitations</h2>
+			<ul>
+				<li>Background Images/Canvas won't be counted</li>
+				<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour.</li>
+				<li>The node highlighter will mis-highlight transformed elements (scale, translate etc..)</li>
+			</ul>
+
+			<h2>Contribute</h2>
+			<p><a href="https://github.com/AdaRoseEdwards/contrast-widget">Github Page with build instructions.</a></p>
+
+			<h2>Examples of bad contrast:</h2>
+			<p>Push the Highlight bad els button to see these highlighted.</p>
 			<div>
 				<div class="standout low-contrast-fg">
 					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
