@@ -139,9 +139,9 @@
         <div class="o-grid-container"><div class="o-grid-row">
 			<article data-o-grid-colspan="center 12 M11 L9">
 				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it very difficult for some readers to read some text.
-				Lea Verou's contrast tool works out the contrast between two colours and gives a numerical answer to whether it has enough contrast.</p>
+				This was inspired by Lea Verou's <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> tool which works out the contrast between foreground and background colours and gives a numerical answer to whether it has enough contrast.</p>
 
-				<p>In order to locate potential problem areas on a website I put together this tool which shows the distribution of text contrast and can highlight elements on the page with poor contrast.</p>
+				<p>In order to locate potential problem areas on a website I put together this tool which shows the distribution of contrast ratio and can highlight elements on the page with poor contrast.</p>
 
 				<p>It's running automatically on this page and it is a bookmarklet so you can run it on almost any site provided the Content Security Policy allows.</p>
 
@@ -207,7 +207,12 @@ window.contrastWidgetOptions = {
 				<p>These values are then used with the color lib from Lea Verou's tool, to work out a value the contrast.</p>
 				<p>We then sum the number of characters contained in that DOM node and use that to produce the small chart.</p>
 
-				<h2>Contribute</h2>
+				<h2 id="feature-reqs"><a href="#feature-reqs">Potential Additional Features</a></h2>
+				<ul>
+					<li>Identify type which is too small.</li>
+				</ul>
+
+				<h2 id="contribute"><a href="#contribute">Contribute</a></h2>
 				<p><a href="https://github.com/AdaRoseEdwards/contrast-widget">Github Page with build instructions.</a></p>
 			</article>
 		</div></div>
