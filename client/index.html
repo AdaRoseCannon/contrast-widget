@@ -130,11 +130,16 @@
 		<h1 class="title">Contrast analysis widget.</h1>
         <div class="o-grid-container"><div class="o-grid-row">
 			<article data-o-grid-colspan="center 12 M11 L9">
-				<p>This tool is inspired by Lea Verou's work on site contrast and uses some code from her <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> Utility</p>
 				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it very difficult for some readers to read some text.
 				Lea Verou's contrast tool works out the contrast between two colours and gives a numerical answer to whether it has enough contrast.</p>
 
-				<p>Drag the Bookmarklet drag it to your bookmark bar: &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Get Page Contrast</a></p>
+				<p>In order to locate potential problem areas on a website I put together this tool which shows the distribution of text contrast and can highlight elements on the page with poor contrast.</p>
+
+				<p>It's running automatically on this page and it is a bookmarklet so you can run it on almost any site provided the Content Security Policy allows.</p>
+
+				<p>This tool was inspired by Lea Verou's work on site contrast and uses some code from her <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> utility.</p>
+
+				<p>Drag the Bookmarklet drag it to your bookmark bar: &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
 
 				<h2>Examples of bad contrast:</h2>
 				<p>Push the "Highlight Low Contrast Elements" button to see these highlighted.</p>
@@ -148,15 +153,16 @@
 				</div>
 
 				<h2>Scripts for automated testing</h2>
+				<p>As well as a bookmarklet to enable it's use with automated tests I also compiled it as a script you can inject into the page once it has loaded. They can be configured to just show the graph or highlight the problem areas. The results are attached to the window so you can easily retrieve the results.</p>
 				<p>
-					Scripts you can inject with phantomjs to perform analysis:
+					Scripts you can inject with webdriver or put in your phantomjs script to perform analysis:
 					<ul>
 						<li><a href="./contrast-widget-bundle.es2015.js">es2015 Bundle</a></li> (Should work in recent chrome)
 						<li><a href="./contrast-widget-bundle.min.js">es5 minified bundle (~60k)</a></li>
 					</ul>
-					These scripts will run the bookmarklet and attatch the data to <span class="code">window.contrastWidgetData</span> The data format:
+					These scripts will perform the analysis automatically and attach the results to the window (<span class="code">window.contrastWidgetData</span>.) The data format is as follows:
 					<pre>
-{
+window.contrastWidgetData = {
 	"badContrastNodes": [
 		{
 			"node": DOM Node,             // Node which is below threshold
@@ -170,7 +176,7 @@
 </pre>
 				</p>
 
-				<p>To configure the script inject into the page a settings object BEFORE you run the script/bookmarklet.</p>
+				<p>Optional: To configure the script inject into the page a settings object BEFORE you inject the script.</p>
 				<pre>
 window.contrastWidgetOptions = {
 	badNodeCutOff: 4.5,         // The threshold for poor contrast.
