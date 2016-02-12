@@ -33,8 +33,16 @@
 			}
 
 			h2, h3 {
-				text-decoration: underline;
 				margin: 2em 0 1.5em 0;
+				border-bottom: 1px solid grey;
+			}
+
+			a {
+			    color: #336ACE;
+			}
+
+			h2 a {
+				text-decoration: none;
 			}
 
 			.title {
@@ -139,9 +147,9 @@
 
 				<p>This tool was inspired by Lea Verou's work on site contrast and uses some code from her <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> utility.</p>
 
-				<p>Drag the Bookmarklet drag it to your bookmark bar: &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
+				<p><b>Drag the Bookmarklet to your bookmark bar:</b> &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
 
-				<h2>Examples of bad contrast:</h2>
+				<h2 id="example"><a href="#example">Examples of bad contrast</a></h2>
 				<p>Push the "Highlight Low Contrast Elements" button to see these highlighted.</p>
 				<div>
 					<div class="standout low-contrast-fg">
@@ -152,7 +160,7 @@
 					</div>
 				</div>
 
-				<h2>Scripts for automated testing</h2>
+				<h2 id="automated-testing"><a href="#automated-testing">Scripts for automated testing</a></h2>
 				<p>As well as a bookmarklet to enable it's use with automated tests I also compiled it as a script you can inject into the page once it has loaded. They can be configured to just show the graph or highlight the problem areas. The results are attached to the window so you can easily retrieve the results.</p>
 				<p>
 					Scripts you can inject with webdriver or put in your phantomjs script to perform analysis:
@@ -184,7 +192,7 @@ window.contrastWidgetOptions = {
 	highlightBadEls: false    // whether to highlight the bad nodes
 }
 				</pre>
-				<h2>Limitations</h2>
+				<h2 id="limitations"><a href="#limitations">Limitations</a></h2>
 				<ul>
 					<li>Background Images and Gradients will be ignored, but it is good practise for these to have a similar 'background-color' regardless to fall back to in case of a lack of gradient support or the image fails to load.</li>
 					<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour will still have that background colour used.</li>
@@ -192,7 +200,7 @@ window.contrastWidgetOptions = {
 					<li>highlighted 'position: fixed' elements will not match the highlight after a scroll</li>
 				</ul>
 
-				<h2>How it works</h2>
+				<h2 id="how-it-works"><a href="#how-it-works">How it works</a></h2>
 				<p>The logic is pretty dumb, it iterates over all text nodes and collects their parent.</p>
 				<p>We then iterate over the parents and use <span class="code">getComputedStyle</span> to measure the <span class="code">color</span></p>
 				<p>We have to be a bit smarter for the background we traverse up the tree until we find a parent with a background.</p>
