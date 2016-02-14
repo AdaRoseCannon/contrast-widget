@@ -2,14 +2,14 @@
   "name": "contrast-widget",
   "version": "1.0.0",
   "description": "Bookmarklet to analyse the contrast of test elements in a document",
-  "main": "index.js",
   "scripts": {
     "build:js": "mkdir -p build && rollup -c && babel --presets es2015 ./build/contrast-widget-bundle.es2015.js | uglifyjs -m -r Chartist --screw-ie8 > ./build/contrast-widget-bundle.min.js && wc -c ./build/contrast-widget-bundle.min.js",
     "build:html": "node ./build-html.js",
-    "watch": "nodemon --watch ./lib --watch ./client -e html,js --exec 'npm run build'",
-    "build": "npm run build:js && npm run build:html && npm run images",
-    "deploy": "npm run build && git-directory-deploy --directory ./build",
-    "images": "cp -r client/images build/"
+    "build:images": "cp -r client/images build/",
+    "build:json": "node ./build-json.js",
+    "watch": "./parallel.sh \"nodemon --watch ./lib -e js --exec npm run build:js\" \"nodemon --watch ./client -e html --exec npm run build:html\"",
+    "build": "npm run build:js && npm run build:html && npm run build:images && npm run build:json",
+    "deploy": "npm run build && git-directory-deploy --directory ./build"
   },
   "repository": "https://github.com/AdaRoseEdwards/contrast-widget",
   "author": "Ada Rose Edwards <ada@ada.is>",
@@ -23,7 +23,9 @@
     "preprocess": "^3.0.2",
     "rollup": "^0.25.3",
     "rollup-plugin-commonjs": "^2.2.1",
+    "rollup-plugin-json": "^2.0.0",
     "rollup-plugin-node-resolve": "^1.4.0",
+    "semver": "^5.1.0",
     "uglify-js": "^2.6.1"
   }
 }

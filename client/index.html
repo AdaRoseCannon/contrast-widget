@@ -38,7 +38,7 @@
 			}
 
 			a {
-			    color: #336ACE;
+				color: #336ACE;
 			}
 
 			h2 a {
@@ -47,12 +47,15 @@
 
 			.title {
 				border-bottom: 1px solid #ccc;
-				font-size: 2em;
 				background: url(./images/pattern.svg);
 				background-size: cover;
-				text-decoration: none;
 				margin: 0;
 				padding: 2em 1em 1em 1em;
+			}
+
+			.title h1 {
+				font-size: 2em;
+				text-decoration: none;
 			}
 
 			.low-contrast-fg {
@@ -135,8 +138,17 @@
 		</style>
 	</head>
 	<body>
-		<h1 class="title">Contrast analysis widget.</h1>
-        <div class="o-grid-container"><div class="o-grid-row">
+		<div class="title">
+			<h1 style="display: inline-block;">Contrast analysis widget.</h1><br />
+			<div style="display:inline-flex; align-items:center; justify-content: space-around; flex-wrap: wrap-reverse; flex-direction: column;">
+				<span>By <a href="https://ada.is">Ada Rose Edwards</a>, <date>12 February 2016</date></span>
+				<p><a href="https://twitter.com/Lady_Ada_King" style="display: none;" class="twitter-follow-button" data-show-count="true" data-size="large" data-dnt="true">Follow @Lady_Ada_King</a></p>
+			</div>
+		</div>
+		<div class="o-grid-container"><div class="o-grid-row">
+			<div data-o-grid-colspan="12 6 3" style="display:inline-flex; align-items:center; justify-content: space-around; flex-wrap: wrap-reverse; flex-direction: column;">
+				<p><a href="https://twitter.com/Lady_Ada_King" class="twitter-follow-button" data-show-count="true" data-size="large" data-dnt="true">Follow @Lady_Ada_King</a></p>
+			</div>
 			<article data-o-grid-colspan="center 12 M11 L9">
 				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it very difficult for some readers to read some text.
 				This was inspired by Lea Verou's <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> tool which works out the contrast between foreground and background colours and gives a numerical answer to whether it has enough contrast.</p>
@@ -173,13 +185,13 @@
 window.contrastWidgetData = {
 	"badContrastNodes": [
 		{
-			"node": DOM Node,             // Node which is below threshold
-			"contrastRatio": 2.6          // contrast ratio of the node
+			"node": DOM Node,			 // Node which is below threshold
+			"contrastRatio": 2.6		  // contrast ratio of the node
 		}
 	],
-	"proportionBadContrast": 7.0495,      // Proportion of characters below threshold
-	"chartData": [ Number &#215; 16 ]          // Data to produce the chart from 0 to >15,
-	"highlightBadEls": Function           // function to highlight bad elements
+	"proportionBadContrast": 7.0495,	  // Proportion of characters below threshold
+	"chartData": [ Number &#215; 16 ]		  // Data to produce the chart from 0 to >15,
+	"highlightBadEls": Function		   // function to highlight bad elements
 }
 </pre>
 				</p>
@@ -187,9 +199,9 @@ window.contrastWidgetData = {
 				<p>Optional: To configure the script inject into the page a settings object BEFORE you inject the script.</p>
 				<pre>
 window.contrastWidgetOptions = {
-	badNodeCutOff: 4.5,         // The threshold for poor contrast.
-	showModal: true,          // whether to show the modal with the graph
-	highlightBadEls: false    // whether to highlight the bad nodes
+	badNodeCutOff: 4.5,		 // The threshold for poor contrast.
+	showModal: true,		  // whether to show the modal with the graph
+	highlightBadEls: false	// whether to highlight the bad nodes
 }
 				</pre>
 				<h2 id="limitations"><a href="#limitations">Limitations</a></h2>
@@ -217,7 +229,8 @@ window.contrastWidgetOptions = {
 			</article>
 		</div></div>
 		<footer>
-			2016 - Ada Rose Edwards
+			2016 - Ada Rose Edwards <span style="float: right;"><a href="https://twitter.com/Lady_Ada_King" class="twitter-follow-button" data-show-count="true" data-size="large" data-dnt="true">Follow @Lady_Ada_King</a></span>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 		</footer>
 		<script type="text/javascript" src="contrast-widget-bundle.min.js"></script>
 	</body>
