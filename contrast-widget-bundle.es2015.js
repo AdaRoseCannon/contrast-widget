@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "0.9.999";
+var version = "0.9.8";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5760,8 +5760,7 @@ function main() {
 			updateButton.addEventListener('click', function () {
 				updateButton.textContent = 'Fetching...';
 				fetch(home + '/bookmarklet-snippet.html')
-				.then(response => response.text())
-				.then(response => response.ok ? response.json() : Promise.reject('Response not ok'))
+				.then(response => response.ok ? response.text() : Promise.reject('Response not ok'))
 				.then(text => updateMessage.innerHTML = text)
 				.catch(e => {
 					console.log(e);
