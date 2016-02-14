@@ -5606,7 +5606,7 @@ function generateContrastData () {
 function checkForUpdates() {
 	if (!window.fetch) return Promise.resolve(false);
 	return fetch(home + '__about.json')
-	.then(response => repsonse.ok ? response.json() : Promise.reject('Bad Response'))
+	.then(response => response.ok ? response.json() : Promise.reject('Bad Response'))
 	.then(about => lt(version, about.version));
 }
 
