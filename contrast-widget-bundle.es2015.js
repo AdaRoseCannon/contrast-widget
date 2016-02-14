@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "0.9.7";
+var version = "1.0.0";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5775,9 +5775,9 @@ function main() {
 				.then(text => {
 					const content = document.createRange().createContextualFragment(text);
 					const style = content.getElementById('contrast-widget-update-style');
-					scopedPolyFill(style);
 					updateMessage.innerHTML = '';
 					updateMessage.appendChild(content);
+					scopedPolyFill(style);
 				})
 				.catch(e => {
 					console.log(e);
