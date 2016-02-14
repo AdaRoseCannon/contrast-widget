@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "0.9.8";
+var version = "0.9.7";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5612,6 +5612,16 @@ function checkForUpdates() {
 	.then(about => lt(version, about.version) && about.version);
 }
 
+function addScript(url) {
+	return new Promise(function (resolve, reject) {
+		var script = document.createElement('script');
+		script.setAttribute('src', url);
+		document.head.appendChild(script);
+		script.onload = resolve;
+		script.onerror = reject;
+	});
+}
+
 function main() {
 	'use strict';
 
@@ -5761,7 +5771,14 @@ function main() {
 				updateButton.textContent = 'Fetching...';
 				fetch(home + '/bookmarklet-snippet.html')
 				.then(response => response.ok ? response.text() : Promise.reject('Response not ok'))
-				.then(text => updateMessage.innerHTML = text)
+				.then(text => addScript('https://cdn.rawgit.com/PM5544/scoped-polyfill/master/scoped.js').then(() => text))
+				.then(text => {
+					const content = document.createRange().createContextualFragment(text);
+					const style = content.getElementById('contrast-widget-update-style');
+					scopedPolyFill(style);
+					updateMessage.innerHTML = '';
+					updateMessage.appendChild(content);
+				})
 				.catch(e => {
 					console.log(e);
 					updateMessage.innerHTML = `Fetching new bookmarklet failed,<br />to update plase go to <a href="${home}">${home}</a>.`;
