@@ -1,4 +1,6 @@
+(function () {
 var define = false;
+
 
 var __commonjs_global = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : this;
 function __commonjs(fn, module) { return module = { exports: {} }, fn(module, module.exports, __commonjs_global), module.exports; }
@@ -4311,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "1.0.0";
+var version = "0.9.999";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5607,7 +5609,7 @@ function checkForUpdates() {
 	if (!window.fetch) return Promise.resolve(false);
 	return fetch(home + '__about.json')
 	.then(response => response.ok ? response.json() : Promise.reject('Contrast Widget failed to check for updates, Bad Response'))
-	.then(about => lt(version, about.version));
+	.then(about => lt(version, about.version) && about.version);
 }
 
 function main() {
@@ -5690,8 +5692,7 @@ function main() {
 	const menuBar = document.createElement('div');
 	chartWrapper.appendChild(menuBar);
 
-	const highlightButton = document.createElement('button');
-	css$$(highlightButton, {
+	const buttonStyle = {
 		all: 'unset',
 		fontSize: '0.9em',
 		border: '2px outset #A2A0A0',
@@ -5702,7 +5703,10 @@ function main() {
 		padding: '0.2em 0.4em',
 		cursor: 'pointer',
 		margin: '0 0.5em 0.5em 0'
-	});
+	};
+
+	const highlightButton = document.createElement('button');
+	css$$(highlightButton, buttonStyle);
 	highlightButton.textContent = 'Highlight Low Contrast Elements';
 	menuBar.appendChild(highlightButton);
 	highlightButton.addEventListener('click', highlightBadEls);
@@ -5744,10 +5748,26 @@ function main() {
 	iButton.href = home;
 	menuBar.appendChild(iButton);
 
-	checkForUpdates().then(function (updateRequired) {
-		if (updateRequired) {
+	checkForUpdates().then(function (newVersion) {
+		if (newVersion) {
 			const updateMessage = document.createElement('div');
-			updateMessage.innerHTML = '<a href="' + home +'">Update available.</a>';
+			updateMessage.innerHTML = `Update Available, from ${version} to ${newVersion} <br />`;
+			const updateButton = document.createElement('button');
+			updateButton.textContent = 'Fetch Updated Bookmarklet';
+			css$$(updateButton, buttonStyle);
+			updateMessage.appendChild(updateButton);
+			chartWrapper.appendChild(updateMessage);
+			updateButton.addEventListener('click', function () {
+				updateButton.textContent = 'Fetching...';
+				fetch(home + '/bookmarklet-snippet.html')
+				.then(response => response.text())
+				.then(response => response.ok ? response.json() : Promise.reject('Response not ok'))
+				.then(text => updateMessage.innerHTML = text)
+				.catch(e => {
+					console.log(e);
+					updateMessage.innerHTML = `Fetching new bookmarklet failed,<br />to update plase go to <a href="${home}">${home}</a>.`;
+				});
+			});
 		}
 	}, function (e) {
 		console.log(e);
@@ -5820,3 +5840,4 @@ if (document.readyState === "complete") {
 		}
 	}
 }
+}());
