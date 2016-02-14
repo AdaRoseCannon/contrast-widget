@@ -4,7 +4,8 @@ import json from 'rollup-plugin-json';
 
 export default {
   entry: './lib/main.js',
-  intro: 'var define = false;',
+  intro: '(function () {\nvar define = false;\n',
+  outro: '}());',
   plugins: [
     nodeResolve({
       jsnext: true

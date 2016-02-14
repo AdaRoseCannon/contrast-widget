@@ -1,3 +1,4 @@
+'use strict';
 function strip(code) {
 	const specialCharacters = ['%', '"', '<', '>', '#', '@', ' ', '\\&', '\\?'];
 	specialCharacters.forEach(function (char) {
@@ -6,10 +7,15 @@ function strip(code) {
 	});
 	return code;
 }
-require('preprocess')
-.preprocessFileSync(
+const pp = require('preprocess');
+const bm = strip(require('fs').readFileSync('build/contrast-widget-bundle.min.js', 'utf8'));
+pp.preprocessFileSync(
 	'./client/index.html',
-	'./build/index.html', {
-		bm: strip(require('fs').readFileSync('build/contrast-widget-bundle.min.js', 'utf8'))
-	}
+	'./build/index.html',
+	{bm}
+);
+pp.preprocessFileSync(
+	'./client/bookmarklet-snippet.html',
+	'./build/bookmarklet-snippet.html', 
+	{bm}
 );

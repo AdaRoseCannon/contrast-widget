@@ -1,0 +1,45 @@
+<style scoped>
+
+	.bookmarklet {
+		display: inline-block;
+		background: #eee;
+		border: 1px solid #ccc;
+		padding: 0.3em;
+		border-radius: 0.5em;
+		text-decoration: none;
+		color: black;
+		cursor: move;
+		cursor: copy;
+		cursor: grab;
+	}
+
+	.lifted {
+		position:relative;
+		background:#fff;
+		box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	}
+
+	/* Lifted corners */
+
+	.lifted:before,
+	.lifted:after { 
+		content: "";
+		position: absolute; 
+		z-index: -1;
+		bottom:15px;
+		left:3%;
+		width:50%;
+		height:20%;
+		max-width:300px;
+		box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+		transform:rotate(-3deg);
+	}
+
+	.lifted:after {
+		right:3%; 
+		left:auto;
+		transform:rotate(3deg);
+	}
+</style>
+<script src="https://cdn.rawgit.com/PM5544/scoped-polyfill/master/scoped.js"></script>
+<p><b>Drag the Bookmarklet to your bookmark bar:</b> &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
