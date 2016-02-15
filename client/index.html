@@ -146,9 +146,6 @@
 			</div>
 		</div>
 		<div class="o-grid-container"><div class="o-grid-row">
-			<div data-o-grid-colspan="12 6 3" style="display:inline-flex; align-items:center; justify-content: space-around; flex-wrap: wrap-reverse; flex-direction: column;">
-				<p><a href="https://twitter.com/Lady_Ada_King" class="twitter-follow-button" data-show-count="true" data-size="large" data-dnt="true">Follow @Lady_Ada_King</a></p>
-			</div>
 			<article data-o-grid-colspan="center 12 M11 L9">
 				<p>It is important that sites maintain legibility of all their text content for all of their users. Low contrast text can make it very difficult for some readers to read some text.
 				This was inspired by Lea Verou's <a href="http://leaverou.github.io/contrast-ratio/">Contrast Ratio</a> tool which works out the contrast between foreground and background colours and gives a numerical answer to whether it has enough contrast.</p>
@@ -209,19 +206,21 @@ window.contrastWidgetOptions = {
 					<li>Background Images and Gradients will be ignored, but it is good practise for these to have a similar 'background-color' regardless to fall back to in case of a lack of gradient support or the image fails to load.</li>
 					<li>Text in 0px<sup>2</sup> area DOM nodes which have background colour will still have that background colour used.</li>
 					<li>The node highlighter will mis-highlight transformed elements (scale, translate etc..)</li>
-					<li>highlighted 'position: fixed' elements will not match the highlight after a scroll</li>
+					<li>The highlight of highlighted 'position: fixed' elements will differ in position after a scroll</li>
+					<li>The widget will be unable to check for updates if used on pages in which the csp disallows, this will not effect the function of the bookmarklet.</li>
 				</ul>
 
 				<h2 id="how-it-works"><a href="#how-it-works">How it works</a></h2>
-				<p>The logic is pretty dumb, it iterates over all text nodes and collects their parent.</p>
-				<p>We then iterate over the parents and use <span class="code">getComputedStyle</span> to measure the <span class="code">color</span></p>
-				<p>We have to be a bit smarter for the background we traverse up the tree until we find a parent with a background.</p>
+				<p>The logic is pretty dumb, it iterates over all text nodes and collects their parents in a Set.</p>
+				<p>We then iterate over the Set of parents and use <span class="code">getComputedStyle</span> to measure the <span class="code">color</span> of the type.</p>
+				<p>We have to be a bit smarter  to measure the background color we traverse up the tree until we find a parent with a background color declared.</p>
 				<p>These values are then used with the color lib from Lea Verou's tool, to work out a value the contrast.</p>
 				<p>We then sum the number of characters contained in that DOM node and use that to produce the small chart.</p>
 
 				<h2 id="feature-reqs"><a href="#feature-reqs">Potential Additional Features</a></h2>
 				<ul>
 					<li>Identify type which is too small.</li>
+					<li>Make it much slower but increase accuracy for layered semi-transparent nodes by collecting the background color from the first opaque node above the leaf node down to the leaf node we are measuring. Layer these in a canvas, then measure the colour of the canvas to work out the aggregate color.</li>
 				</ul>
 
 				<h2 id="contribute"><a href="#contribute">Contribute</a></h2>
