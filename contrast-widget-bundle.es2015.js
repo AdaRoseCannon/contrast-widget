@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "1.0.1";
+var version = "1.0.2";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5600,7 +5600,7 @@ function generateContrastData () {
 
 	return {
 		badContrastNodes: badNodes,
-		proportionBadContrast: badChars / goodChars,
+		proportionBadContrast: badChars / (badChars + goodChars),
 		chartData: chartData.map(i => (i/(badChars + goodChars))) // average the data to keep numbers small
 	}
 }
