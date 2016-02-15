@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "1.0.2";
+var version = "1.0.3";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5819,9 +5819,13 @@ function main() {
 		fontWeight: 'bold'
 	});
 
-	chartWrapper.appendChild(yLabel);
 
-	const line = new Chartist.Line(chartWrapper, {
+	const chartContainer = document.createElement('div');
+	chartWrapper.appendChild(yLabel);
+	chartWrapper.appendChild(chartContainer);
+	chartWrapper.appendChild(xLabel);
+
+	const line = new Chartist.Line(chartContainer, {
 		labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, '15+'].map((a, i) => i % 3 ? '' : String(a)),
 		series: [
 			chartData
@@ -5840,8 +5844,6 @@ function main() {
 	});
 
 	line.on('created', function(ctx) {
-
-		chartWrapper.appendChild(xLabel);
 		var defs = ctx.svg.elem('defs');
 		defs.elem('linearGradient', {
 			id: 'gradient',

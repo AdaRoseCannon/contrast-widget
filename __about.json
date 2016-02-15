@@ -1,6 +1,6 @@
 {
   "name": "contrast-widget",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bookmarklet to analyse the contrast of test elements in a document",
   "repository": "https://github.com/AdaRoseEdwards/contrast-widget",
   "author": "Ada Rose Edwards <ada@ada.is>",
