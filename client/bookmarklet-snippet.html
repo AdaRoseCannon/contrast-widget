@@ -1,6 +1,6 @@
 <style id='contrast-widget-update-style' scoped>
 
-	.bookmarklet {
+	#contrast-widget-bookmarklet-snippet-link a.bookmarklet {
 		display: inline-block;
 		background: #eee;
 		border: 1px solid #ccc;
@@ -11,9 +11,10 @@
 		cursor: move;
 		cursor: copy;
 		cursor: grab;
+		margin: 0.25em 0.25em 0 0;
 	}
 
-	.lifted {
+	#contrast-widget-bookmarklet-snippet-link a.lifted {
 		position:relative;
 		background:#fff;
 		box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -21,8 +22,8 @@
 
 	/* Lifted corners */
 
-	.lifted:before,
-	.lifted:after { 
+	#contrast-widget-bookmarklet-snippet-link a.lifted:before,
+	#contrast-widget-bookmarklet-snippet-link a.lifted:after { 
 		content: "";
 		position: absolute; 
 		z-index: -1;
@@ -35,10 +36,10 @@
 		transform:rotate(-3deg);
 	}
 
-	.lifted:after {
+	#contrast-widget-bookmarklet-snippet-link a.lifted:after {
 		right:3%; 
 		left:auto;
 		transform:rotate(3deg);
 	}
 </style>
-<p><b>Drag the Bookmarklet to your bookmark bar:</b> &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
+<p id='contrast-widget-bookmarklet-snippet-link'><b>Drag the Bookmarklet to<br />your bookmark bar:</b><br /><a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
