@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "1.0.0";
+var version = "0.9.0";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5612,16 +5612,6 @@ function checkForUpdates() {
 	.then(about => lt(version, about.version) && about.version);
 }
 
-function addScript(url) {
-	return new Promise(function (resolve, reject) {
-		var script = document.createElement('script');
-		script.setAttribute('src', url);
-		document.head.appendChild(script);
-		script.onload = resolve;
-		script.onerror = reject;
-	});
-}
-
 function main() {
 	'use strict';
 
@@ -5761,23 +5751,31 @@ function main() {
 	checkForUpdates().then(function (newVersion) {
 		if (newVersion) {
 			const updateMessage = document.createElement('div');
+			css$$(updateMessage, {
+				padding: '0.5em',
+				margin: '0.25em',
+				border: '1px solid grey',
+				borderRadius: '0.5em'
+			});
 			updateMessage.innerHTML = `Update Available, from ${version} to ${newVersion} <br />`;
 			const updateButton = document.createElement('button');
 			updateButton.textContent = 'Fetch Updated Bookmarklet';
 			css$$(updateButton, buttonStyle);
+			css$$(updateButton, {
+				margin: '0.25em 0.5em 0 0em'
+			});
 			updateMessage.appendChild(updateButton);
 			chartWrapper.appendChild(updateMessage);
 			updateButton.addEventListener('click', function () {
 				updateButton.textContent = 'Fetching...';
 				fetch(home + '/bookmarklet-snippet.html')
-				.then(response => response.ok ? response.text() : Promise.reject('Response not ok'))
-				.then(text => addScript('https://cdn.rawgit.com/PM5544/scoped-polyfill/master/scoped.js').then(() => text))
+				.then(response => response.ok ? response.text() : Promise.reject('Snippet Response not ok'))
 				.then(text => {
 					const content = document.createRange().createContextualFragment(text);
 					const style = content.getElementById('contrast-widget-update-style');
 					updateMessage.innerHTML = '';
+					document.head.appendChild(style);
 					updateMessage.appendChild(content);
-					scopedPolyFill(style);
 				})
 				.catch(e => {
 					console.log(e);
@@ -5804,6 +5802,25 @@ function main() {
 	document.body.appendChild(chartWrapper);
 
 	css();
+
+	const yLabel = document.createElement('div');
+	yLabel.textContent = 'Proportion of Characters';
+	css$$(yLabel, {
+		display: 'block',
+		textAlign: 'left',
+		fontWeight: 'bold'
+	});
+
+	const xLabel = document.createElement('div');
+	xLabel.textContent =  'Contrast';
+	css$$(xLabel, {
+		display: 'block',
+		textAlign: 'center',
+		fontWeight: 'bold'
+	});
+
+	chartWrapper.appendChild(yLabel);
+
 	const line = new Chartist.Line(chartWrapper, {
 		labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, '15+'].map((a, i) => i % 3 ? '' : String(a)),
 		series: [
@@ -5823,6 +5840,8 @@ function main() {
 	});
 
 	line.on('created', function(ctx) {
+
+		chartWrapper.appendChild(xLabel);
 		var defs = ctx.svg.elem('defs');
 		defs.elem('linearGradient', {
 			id: 'gradient',
