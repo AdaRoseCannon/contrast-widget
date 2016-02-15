@@ -1,6 +1,6 @@
 {
   "name": "contrast-widget",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bookmarklet to analyse the contrast of test elements in a document",
   "scripts": {
     "build:js": "mkdir -p build && rollup -c && babel --presets es2015 ./build/contrast-widget-bundle.es2015.js | uglifyjs -m -r Chartist --screw-ie8 > ./build/contrast-widget-bundle.min.js && wc -c ./build/contrast-widget-bundle.min.js",
