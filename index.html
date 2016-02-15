@@ -214,7 +214,7 @@ window.contrastWidgetOptions = {
 				</ul>
 
 				<h2 id="how-it-works"><a href="#how-it-works">How it works</a></h2>
-				<p>The logic is pretty dumb, it iterates over all text nodes and collects their parents in a Set.</p>
+				<p>The bookmarklet iterates over all text nodes in the document and collects their parents in a Set.</p>
 				<p>We then iterate over the Set of parents and use <span class="code">getComputedStyle</span> to measure the <span class="code">color</span> of the type.</p>
 				<p>We have to be a bit smarter  to measure the background color we traverse up the tree until we find a parent with a background color declared.</p>
 				<p>These values are then used with the color lib from Lea Verou's tool, to work out a value the contrast.</p>
