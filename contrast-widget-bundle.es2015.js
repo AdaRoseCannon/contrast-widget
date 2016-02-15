@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "0.9.0";
+var version = "1.0.1";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
