@@ -4313,7 +4313,7 @@ function css() {
 	document.head.appendChild(style);
 }
 
-var version = "1.0.3";
+var version = "1.0.4";
 
 var semver = __commonjs(function (module, exports) {
 exports = module.exports = SemVer;
@@ -5551,7 +5551,9 @@ function getBackgroundColorForEl (el) {
 	if (bgc !== noColorCalculatedStyle && bgc != "") {
 		return bgc;
 	} else if (el.parentNode) {
-		return getBackgroundColorForEl(el.parentNode);
+		if (el.parentNode !== document) {
+			return getBackgroundColorForEl(el.parentNode);
+		}
 	}
 	return null;
 }
@@ -5796,6 +5798,8 @@ function main() {
 		background: '#eee',
 		boxShadow: '0 0 1em 0 black',
 		boxSizing: 'border-box',
+		fontSize: '16px',
+		fontFamily: `'Open Sans',  'Helvetica Neue', Helvetica, sans-serif`,
 		zIndex: 1000
 	});
 
@@ -5821,6 +5825,9 @@ function main() {
 
 
 	const chartContainer = document.createElement('div');
+	css$$(chartContainer, {
+		marginBottom: '-1em'
+	});
 	chartWrapper.appendChild(yLabel);
 	chartWrapper.appendChild(chartContainer);
 	chartWrapper.appendChild(xLabel);
