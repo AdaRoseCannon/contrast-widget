@@ -158,6 +158,8 @@
 
 				<p><b>Drag the Bookmarklet to your bookmark bar:</b> &nbsp;<a href="javascript:<!-- @echo bm -->" class="bookmarklet lifted">Analyse Contrast</a></p>
 
+				<p><b>Firefox:</b> Fallback bookmarklet, works in firefox, doesn't work offline: &nbsp;<a href="javascript:(function(){var t = document.createElement('script'); t.src='<!-- @echo home -->/contrast-widget-bundle.min.js'; document.head.appendChild(t);}())" class="bookmarklet lifted">Analyse Contrast</a></p>
+
 				<h2 id="example"><a href="#example">Examples of bad contrast</a></h2>
 				<p>Push the "Highlight Low Contrast Elements" button to see these highlighted.</p>
 				<div>
@@ -174,8 +176,8 @@
 				<p>
 					Scripts you can inject with webdriver or put in your phantomjs script to perform analysis:
 					<ul>
-						<li><a href="./contrast-widget-bundle.es2015.js">es2015 Bundle</a></li> (Should work in recent chrome)
-						<li><a href="./contrast-widget-bundle.min.js">es5 minified bundle (~60k)</a></li>
+						<li><a href="<!-- @echo home -->/contrast-widget-bundle.es2015.js">es2015 Bundle</a></li> (Should work in recent chrome)
+						<li><a href="<!-- @echo home -->/contrast-widget-bundle.min.js">es5 minified bundle (~73k)</a></li>
 					</ul>
 					These scripts will perform the analysis automatically and attach the results to the window (<span class="code">window.contrastWidgetData</span>.) The data format is as follows:
 					<pre>
