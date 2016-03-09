@@ -29,6 +29,9 @@
         "no-var": 2,
         "prefer-const": 1,
         "no-const-assign": 2,
-        "space-after-keywords": 2
+        "space-after-keywords": 2,
+        "indent": [2, "tab"],
+        "no-trailing-spaces": 2
+        }
     }
 }
