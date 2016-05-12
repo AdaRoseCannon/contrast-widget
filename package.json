@@ -15,7 +15,7 @@
   "author": "Ada Rose Edwards <ada@ada.is>",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.5.1",
+    "babel-cli": "^6.7.5",
     "babel-preset-es2015": "^6.5.0",
     "chartist": "^0.9.5",
     "git-directory-deploy": "^1.4.0",
