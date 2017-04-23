@@ -9,7 +9,7 @@ function strip(code) {
 }
 const pp = require('preprocess');
 const bm = strip(require('fs').readFileSync('build/contrast-widget-bundle.min.js', 'utf8'));
-const home = 'https://gh.ada.is/contrast-widget';
+const home = 'https://ada.is/contrast-widget';
 pp.preprocessFileSync(
 	'./client/index.html',
 	'./build/index.html',
